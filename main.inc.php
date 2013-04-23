@@ -171,6 +171,8 @@
     define('TICKET_EVENT_TABLE',TABLE_PREFIX.'ticket_event');
     define('TICKET_EMAIL_INFO_TABLE',TABLE_PREFIX.'ticket_email_info');
 
+    define('AMBIENTE_TABLE',TABLE_PREFIX.'ambiente');
+    
     define('EMAIL_TABLE',TABLE_PREFIX.'email');
     define('EMAIL_TEMPLATE_TABLE',TABLE_PREFIX.'email_template');
 

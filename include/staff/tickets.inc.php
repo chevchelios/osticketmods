@@ -1,4 +1,4 @@
-f<?php
+<?php
 if(!defined('OSTSCPINC') || !$thisstaff || !@$thisstaff->isStaff()) die('Access Denied');
 
 $qstr='&'; //Query string collector
