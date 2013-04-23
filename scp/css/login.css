@@ -32,7 +32,7 @@ html {
 
 body {
     -webkit-font-smoothing:antialiased;
-    background:url(../images/login-background.jpg) top left repeat-x #fff;
+   /* background:url(../images/login-background.jpg) top left repeat-x #fff;*/
     font-size: 16px;
     font-smoothing:antialiased;
     height:100%;
