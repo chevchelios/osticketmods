@@ -99,6 +99,9 @@ class StaffNav {
             $this->tabs['dashboard']=array('desc'=>'Dashboard','href'=>'dashboard.php','title'=>'Staff Dashboard');
             $this->tabs['tickets']=array('desc'=>'Tickets','href'=>'tickets.php','title'=>'Ticket Queue');
             $this->tabs['kbase']=array('desc'=>'Knowledgebase','href'=>'kb.php','title'=>'Knowledgebase');
+            $this->tabs['estadisticas']=array('desc'=>'Estad&iacute;sticas','href'=>'estadisticas.php','title'=>'Estadisticas');
+            $this->tabs['feriados']=array('desc'=>'Feriados','href'=>'feriados.php','title'=>'Feriados');
+            $this->tabs['bitacora']=array('desc'=>'Bit&aacute;cora','href'=>'bitacora.php','title'=>'Bitacora');
         }
 
         return $this->tabs;
