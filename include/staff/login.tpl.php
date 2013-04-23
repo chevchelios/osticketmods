@@ -20,7 +20,11 @@ $info = ($_POST && $errors)?Format::htmlchars($_POST):array();
          });
     </script>
 </head>
-<body id="loginBody">
+<body id="loginBody">  
+<div id="titleBox">
+    <h4>Sistema de Requerimientos Técnicos y RDC</h4>
+    <h4>Administración QA – Sub Gerencia de Control de Calidad y Cambios </h4>
+</div>
 <div id="loginBox">
     <h1 id="logo"><a href="index.php">osTicket Staff Control Panel</a></h1>
     <h3><?php echo Format::htmlchars($msg); ?></h3>

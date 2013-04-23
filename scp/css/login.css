@@ -55,13 +55,22 @@ input[type=reset], input[type=submit], input[type=button] {
     tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
+#titleBox {
+    border-style: double;
+    border-color:#2a67ac;
+    background:#fff;
+    width:550px;
+    margin:3% auto 0 auto;
+    padding:.2em;
+    text-align:center;
+}
 #loginBox {
     border:1px solid #2a67ac;
     border-right:2px solid #2a67ac;
     border-bottom:3px solid #2a67ac;
     background:#fff;
     width:400px;
-    margin:10% auto 0 auto;
+    margin:2em auto 0 auto;
     padding:1em;
     text-align:center;
 }
@@ -88,6 +97,13 @@ h3 {
     color:#d00;
 }
 
+h4 {
+    margin:0.6em 0;
+    text-align:center;
+    font-size:1em;
+    font-weight:normal;
+    color:#d00;
+}
 form {
     width:220px;
     margin:0 auto;
