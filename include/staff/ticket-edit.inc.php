@@ -9,7 +9,7 @@ $info=Format::htmlchars(($errors && $_POST)?$_POST:$ticket->getUpdateInfo());
  <input type="hidden" name="a" value="edit">
  <input type="hidden" name="id" value="<?php echo $ticket->getId(); ?>">
  <h2>Update Ticket# <?php echo $ticket->getExtId(); ?></h2>
- <table class="form_table" width="940" border="0" cellspacing="0" cellpadding="2">
+ <table class="form_table" width="100%" border="0" cellspacing="0" cellpadding="2">
     <thead>
         <tr>
             <th colspan="2">
@@ -135,6 +135,27 @@ $info=Format::htmlchars(($errors && $_POST)?$_POST:$ticket->getUpdateInfo());
                 &nbsp;<font class="error">&nbsp;<?php echo $errors['slaId']; ?></font>
             </td>
         </tr>
+        
+        <tr>
+            <td width="160">
+                Ambiente:
+            </td>
+            <td>
+                <select name="ambienteId">
+                    <option value="0" selected="selected" >&mdash; None &mdash;</option>
+                    <?php
+                    if($ambs=Ambiente::getAmbientes()) {
+                        foreach($ambs as $id =>$name) {
+                           echo sprintf('<option value="%d" %s> - %s</option>',
+                                    $id, ($info['ambienteId']==$id)?'selected="selected"':'',$name);
+                        }
+                    }
+                    ?>
+                </select>
+                &nbsp;<font class="error">&nbsp;<?php echo $errors['ambienteId']; ?></font>
+            </td>
+        </tr>
+        
         <tr>
             <td width="160">
                 Due Date:

@@ -45,11 +45,11 @@ else
 <div style="float:right;text-align:right;padding-top:5px;padding-right:5px;">
  <b><a href="ambientes.php?a=add" class="Icon newsla">Agregar Nuevo Ambiente</a></b></div>
 <div class="clear"></div>
-<form action="slas.php" method="POST" name="slas">
+<form action="ambientes.php" method="POST" name="ambientes">
  <?php csrf_token(); ?>
  <input type="hidden" name="do" value="mass_process" >
 <input type="hidden" id="action" name="a" value="" >
- <table class="list" border="0" cellspacing="1" cellpadding="0" width="940">
+ <table class="list" border="0" cellspacing="1" cellpadding="0" width="100%">
     <caption><?php echo $showing; ?></caption>
     <thead>
         <tr>
@@ -76,7 +76,7 @@ else
                   <input type="checkbox" class="ckb" name="ids[]" value="<?php echo $row['id']; ?>" 
                             <?php echo $sel?'checked="checked"':''; ?>>
                 </td>
-                <td>&nbsp;<a href="slas.php?id=<?php echo $row['id']; ?>"><?php echo Format::htmlchars($row['name']); ?></a></td>
+                <td>&nbsp;<a href="ambientes.php?id=<?php echo $row['id']; ?>"><?php echo Format::htmlchars($row['name']); ?></a></td>
                 <td><?php echo $row['isactive']?'Active':'<b>Disabled</b>'; ?></td>
                 <!--td style="text-align:right;padding-right:35px;"><?php echo $row['grace_period']; ?>&nbsp;</td-->
                 <td>&nbsp;<?php echo Format::db_date($row['created']); ?></td>
@@ -119,13 +119,13 @@ endif;
     <a class="close" href="">&times;</a>
     <hr/>
     <p class="confirm-action" style="display:none;" id="enable-confirm">
-        Are you sure want to <b>enable</b> selected SLA plans?
+        Are you sure want to <b>enable</b> selected Ambientes?
     </p>
     <p class="confirm-action" style="display:none;" id="disable-confirm">
-        Are you sure want to <b>disable</b> selected SLA plans?
+        Are you sure want to <b>disable</b> selected Ambientes?
     </p>
     <p class="confirm-action" style="display:none;" id="delete-confirm">
-        <font color="red"><strong>Are you sure you want to DELETE selected SLA plans?</strong></font>
+        <font color="red"><strong>Are you sure you want to DELETE selected Ambientes?</strong></font>
     </p>
     <div>Please confirm to continue.</div>
     <hr style="margin-top:1em"/>

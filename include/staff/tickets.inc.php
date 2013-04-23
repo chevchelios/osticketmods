@@ -148,7 +148,13 @@ if($search):
         $qwhere.=' AND ticket.topic_id='.db_input($_REQUEST['topicId']);
         $qstr.='&topicId='.urlencode($_REQUEST['topicId']);
     }
-        
+    
+    //Ambiente topic
+    if($_REQUEST['ambienteId']) {
+        $qwhere.=' AND ticket.ambiente_id='.db_input($_REQUEST['ambienteId']);
+        $qstr.='&ambienteId='.urlencode($_REQUEST['ambienteId']);
+    }
+    
     //Assignee 
     if(isset($_REQUEST['assignee']) && strcasecmp($_REQUEST['status'], 'closed'))  {
         $id=preg_replace("/[^0-9]/", "", $_REQUEST['assignee']);
@@ -253,7 +259,7 @@ if($_GET['limit'])
     $qstr.='&limit='.urlencode($_GET['limit']);
 
 $qselect ='SELECT DISTINCT ticket.ticket_id,lock_id,ticketID,ticket.dept_id,ticket.staff_id,ticket.team_id '
-         .' ,ticket.subject,ticket.name,ticket.email,dept_name '
+         .' ,ticket.subject,ticket.name,amb.name as ambiente_desc, amb.id as ambiente_id,ticket.email,dept_name '
          .' ,ticket.status,ticket.source,isoverdue,isanswered,ticket.created,pri.* ';
 
 $qfrom=' FROM '.TICKET_TABLE.' ticket '.
@@ -290,6 +296,7 @@ $qfrom.=' LEFT JOIN '.TICKET_PRIORITY_TABLE.' pri ON (ticket.priority_id=pri.pri
        .' LEFT JOIN '.STAFF_TABLE.' staff ON (ticket.staff_id=staff.staff_id) '
        .' LEFT JOIN '.TEAM_TABLE.' team ON (ticket.team_id=team.team_id) '
        .' LEFT JOIN '.SLA_TABLE.' sla ON (ticket.sla_id=sla.id AND sla.isactive=1) '
+       .' LEFT JOIN '.AMBIENTE_TABLE.' amb ON (ticket.ambiente_id=amb.id AND amb.isactive=1) '
        .' LEFT JOIN '.TOPIC_TABLE.' topic ON (ticket.topic_id=topic.topic_id) '
        .' LEFT JOIN '.TOPIC_TABLE.' ptopic ON (ptopic.topic_id=topic.topic_pid) ';
 
@@ -334,7 +341,7 @@ $negorder=$order=='DESC'?'ASC':'DESC'; //Negate the sorting..
  <input type="hidden" name="a" value="mass_process" >
  <input type="hidden" name="do" id="action" value="" >
  <input type="hidden" name="status" value="<?php echo Format::htmlchars($_REQUEST['status']); ?>" >
- <table class="list" border="0" cellspacing="1" cellpadding="2" width="940">
+ <table class="list" border="0" cellspacing="1" cellpadding="2" width="100%">
     <caption><?php echo $showing; ?>&nbsp;&nbsp;&nbsp;<?php echo $results_type; ?></caption>
     <thead>
         <tr>
@@ -350,7 +357,7 @@ $negorder=$order=='DESC'?'ASC':'DESC'; //Negate the sorting..
 	        <th width="280">
                  <a <?php echo $subj_sort; ?> href="tickets.php?sort=subj&order=<?php echo $negorder; ?><?php echo $qstr; ?>" 
                     title="Sort By Subject <?php echo $negorder; ?>">Subject</a></th>
-            <th width="170">
+                <th width="170">
                 <a <?php echo $name_sort; ?> href="tickets.php?sort=name&order=<?php echo $negorder; ?><?php echo $qstr; ?>"
                      title="Sort By Name <?php echo $negorder; ?>">From</a></th>
             <?php
@@ -365,7 +372,13 @@ $negorder=$order=='DESC'?'ASC':'DESC'; //Negate the sorting..
                         title="Sort By Priority <?php echo $negorder; ?>">Priority</a></th>
             <?php
             }
-
+          
+            { ?>
+                <th width="60" <?php echo $pri_sort;?>>
+                    <a <?php echo $pri_sort; ?> href="tickets.php?sort=amb&order=<?php echo $negorder; ?><?php echo $qstr; ?>" 
+                        title="Sort By Ambiente <?php echo $negorder; ?>">Ambiente</a></th>
+            <?php
+            }            
             if($showassigned ) { 
                 //Closed by
                 if(!strcasecmp($status,'closed')) { ?>
@@ -418,7 +431,7 @@ $negorder=$order=='DESC'?'ASC':'DESC'; //Negate the sorting..
                 if(!strcasecmp($row['status'],'open') && !$row['isanswered'] && !$row['lock_id']) {
                     $tid=sprintf('<b>%s</b>',$tid);
                 }
-                ?>
+                     ?>
             <tr id="<?php echo $row['ticket_id']; ?>">
                 <?php if($thisstaff->canManageTickets()) { 
                               
@@ -452,7 +465,16 @@ $negorder=$order=='DESC'?'ASC':'DESC'; //Negate the sorting..
                     <?php echo $row['priority_desc']; ?></td>
                 <?php
                 } 
+                
+                { ?>
+                <td class="nohover" align="center" style="background-color:<?php echo $row['priority_color']; ?>;">
+                    <?php echo $row['ambiente_desc']; ?></td>
+                <?php
+                } 
                 ?>
+                
+                
+                
                 <td nowrap>&nbsp;<?php echo $lc; ?></td>
             </tr>
             <?php

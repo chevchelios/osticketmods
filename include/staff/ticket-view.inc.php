@@ -37,7 +37,7 @@ if($ticket->isOverdue())
     $warn.='&nbsp;&nbsp;<span class="Icon overdueTicket">Marked overdue!</span>';
 
 ?>
-<table width="940" cellpadding="2" cellspacing="0" border="0">
+<table width="100%" cellpadding="2" cellspacing="0" border="0">
     <tr>
         <td width="50%" class="has_bottom_border">
              <h2><a href="tickets.php?id=<?php echo $ticket->getId(); ?>" title="Reload"><i class="icon-refresh"></i> Ticket #<?php echo $ticket->getExtId(); ?></a></h2>
@@ -118,7 +118,7 @@ if($ticket->isOverdue())
         </td>
     </tr>
 </table>
-<table class="ticket_info" cellspacing="0" cellpadding="0" width="940" border="0">
+<table class="ticket_info" cellspacing="0" cellpadding="0" width="100%" border="0">
     <tr>
         <td width="50">
             <table border="0" cellspacing="" cellpadding="4" width="100%">
@@ -194,7 +194,7 @@ if($ticket->isOverdue())
     </tr>
 </table>
 <br>
-<table class="ticket_info" cellspacing="0" cellpadding="0" width="940" border="0">
+<table class="ticket_info" cellspacing="0" cellpadding="0" width="100%" border="0">
     <tr>
         <td width="50%">
             <table cellspacing="0" cellpadding="4" width="100%" border="0">
@@ -289,7 +289,7 @@ if(!$cfg->showNotesInline()) { ?>
         foreach($notes as $note) {
 
         ?>
-        <table class="note" cellspacing="0" cellpadding="1" width="940" border="0">
+        <table class="note" cellspacing="0" cellpadding="1" width="100%" border="0">
             <tr>
                 <th width="640">
                     <?php
@@ -333,7 +333,7 @@ if(!$cfg->showNotesInline()) { ?>
     if(($thread=$ticket->getThreadEntries($types))) {
        foreach($thread as $entry) {
            ?>
-        <table class="<?php echo $threadTypes[$entry['thread_type']]; ?>" cellspacing="0" cellpadding="1" width="940" border="0">
+        <table class="<?php echo $threadTypes[$entry['thread_type']]; ?>" cellspacing="0" cellpadding="1" width="100%" border="0">
             <tr>
                 <th width="200"><?php echo Format::db_datetime($entry['created']);?></th>
                 <th width="440"><span><?php echo Format::htmlchars($entry['title']); ?></span></th>

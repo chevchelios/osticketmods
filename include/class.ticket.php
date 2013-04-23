@@ -31,6 +31,8 @@ include_once(INCLUDE_DIR.'class.priority.php');
 include_once(INCLUDE_DIR.'class.sla.php');
 include_once(INCLUDE_DIR.'class.canned.php');
 
+include_once(INCLUDE_DIR.'class.ambiente.php');
+
 class Ticket {
 
     var $id;
@@ -47,6 +49,8 @@ class Ticket {
     var $team;  //Team obj
     var $topic; //Topic obj
     var $tlock; //TicketLock obj
+    
+    var $amb;
 
     var $thread; //Thread obj.
 
@@ -66,6 +70,7 @@ class Ticket {
             .' FROM '.TICKET_TABLE.' ticket '
             .' LEFT JOIN '.DEPT_TABLE.' dept ON (ticket.dept_id=dept.dept_id) '
             .' LEFT JOIN '.SLA_TABLE.' sla ON (ticket.sla_id=sla.id AND sla.isactive=1) '
+            .' LEFT JOIN '.AMBIENTE_TABLE.' amb ON (ticket.ambiente_id=amb.id AND amb.isactive=1) '     
             .' LEFT JOIN '.TICKET_PRIORITY_TABLE.' pri ON ('
                 .'ticket.priority_id=pri.priority_id) '
             .' LEFT JOIN '.TICKET_LOCK_TABLE.' tlock ON ('
@@ -95,6 +100,7 @@ class Ticket {
         $this->stats = null;
         $this->topic = null;
         $this->thread = null;
+        $this->amb = null;
 
         //REQUIRED: Preload thread obj - checked on lookup!
         $this->getThread();
@@ -297,6 +303,7 @@ class Ticket {
                     'topicId'   =>  $this->getTopicId(),
                     'priorityId'    =>  $this->getPriorityId(),
                     'slaId' =>  $this->getSLAId(),
+                    'ambienteId'=> $this->getAmbienteId(),
                     'duedate'   =>  $this->getDueDate()?(Format::userdate('m/d/Y', Misc::db2gmtime($this->getDueDate()))):'',
                     'time'  =>  $this->getDueDate()?(Format::userdate('G:i', Misc::db2gmtime($this->getDueDate()))):'',
                     );
@@ -429,6 +436,18 @@ class Ticket {
             $this->sla = SLA::lookup($this->getSLAId());
 
         return $this->sla;
+    }
+    
+     function getAmbienteId() {
+        return $this->ht['ambiente_id'];
+    }
+
+    function getAmbiente() {
+
+        if(!$this->amb && $this->getAmbienteId())
+            $this->amb = Ambiente::lookup($this->getAmbienteId());
+
+        return $this->amb;
     }
 
     function getLastRespondent() {
@@ -574,6 +593,14 @@ class Ticket {
         return true;
     }
 
+    function setAmbienteId($ambienteId) {
+        if ($ambienteId == $this->getAmbienteId()) return true;
+        return db_query(
+             'UPDATE '.TICKET_TABLE.' SET ambiente_id='.db_input($ambienteId)
+            .' WHERE ticket_id='.db_input($this->getId()))
+            && db_affected_rows();
+    }
+    
     function setSLAId($slaId) {
         if ($slaId == $this->getSLAId()) return true;
         return db_query(
@@ -1596,6 +1623,7 @@ class Ticket {
         $fields['topicId']  = array('type'=>'int',      'required'=>1, 'error'=>'Help topic required');
         $fields['priorityId'] = array('type'=>'int',    'required'=>1, 'error'=>'Priority required');
         $fields['slaId']    = array('type'=>'int',      'required'=>0, 'error'=>'Select SLA');
+        $fields['ambienteId']= array('type'=>'int',      'required'=>0, 'error'=>'Select Ambiente');
         $fields['phone']    = array('type'=>'phone',    'required'=>0, 'error'=>'Valid phone # required');
         $fields['duedate']  = array('type'=>'date',     'required'=>0, 'error'=>'Invalid date - must be MM/DD/YY');
 
@@ -1632,6 +1660,7 @@ class Ticket {
             .' ,phone="'.db_input($vars['phone'],false).'"'
             .' ,phone_ext='.db_input($vars['phone_ext']?$vars['phone_ext']:NULL)
             .' ,priority_id='.db_input($vars['priorityId'])
+           .' ,ambiente_id='.db_input($vars['ambienteId'])     
             .' ,topic_id='.db_input($vars['topicId'])
             .' ,sla_id='.db_input($vars['slaId'])
             .' ,duedate='.($vars['duedate']?db_input(date('Y-m-d G:i',Misc::dbtime($vars['duedate'].' '.$vars['time']))):'NULL');

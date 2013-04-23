@@ -95,18 +95,18 @@ class Ambiente {
     function create($vars,&$errors) {
         return Ambiente::save(0,$vars,$errors);
     }
-/*get SLAs*/
+
     function getAmbientes() {
 
-        $slas=array();
-        $sql='SELECT id, name, isactive, FROM '.AMBIENTE_TABLE.' ORDER BY name';
+        $ambs=array();
+        $sql='SELECT id, name,isactive FROM '.AMBIENTE_TABLE.' ORDER BY name';
         if(($res=db_query($sql)) && db_num_rows($res)) {
             while($row=db_fetch_array($res))
-                $ambs[$row['id']] = sprintf('%s (%d hrs - %s)',
+                $ambs[$row['id']] = sprintf('%s %s',
                         $row['name'], 
                         $row['isactive']?'Active':'Disabled');
         }
-
+      
         return $ambs;
     }
 

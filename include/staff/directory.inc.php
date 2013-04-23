@@ -91,7 +91,7 @@ if($res && ($num=db_num_rows($res)))
 else
     $showing='No staff members found!';
 ?>
-<table class="list" border="0" cellspacing="1" cellpadding="0" width="940">
+<table class="list" border="0" cellspacing="1" cellpadding="0" width="100%">
     <caption><?php echo $showing; ?></caption>
     <thead>
         <tr>

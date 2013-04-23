@@ -27,6 +27,8 @@ class Config {
     var $alertEmail;  //Alert Email
     var $defaultSMTPEmail; //Default  SMTP Email
 
+    var $defaultAmbiente; //Default Ambiente   
+    
     function Config($id) {
         $this->load($id);
     }
@@ -220,6 +222,18 @@ class Config {
         return $this->defaultDept;
     }
 
+        function getDefaultAmbienteId() {
+        return $this->config['default_ambiente_id'];
+    }
+
+    function getDefaultambiente() {
+
+        if(!$this->defaultAmbiente && $this->getDefaultAmbienteId())
+            $this->defaultAmbiente=Ambiente::lookup($this->getDefaultAmbienteId());
+
+        return $this->defaultDept;
+    }
+    
     function getDefaultEmailId() {
         return $this->config['default_email_id'];
     }

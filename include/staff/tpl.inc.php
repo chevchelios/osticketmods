@@ -32,7 +32,7 @@ $info=array_merge($template->getMsgTemplate($info['tpl']),$info);
 <input type="hidden" name="a" value="manage">
 <input type="hidden" name="do" value="updatetpl">
 
-<table class="form_table settings_table" width="940" border="0" cellspacing="0" cellpadding="2">
+<table class="form_table settings_table" width="100%" border="0" cellspacing="0" cellpadding="2">
    <thead>
      <tr>
         <th colspan="2">
