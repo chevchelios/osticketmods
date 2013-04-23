@@ -72,11 +72,11 @@ a {
     display:block;
     float:left;
     width:190px;
-    height:76px;
+    height:74px;
     text-decoration:none;
     outline:none;
     text-indent:-9999px;
-    background:url(../images/ost-logo.png) top left no-repeat;
+    background:url(../images/sys-logo.png) top left no-repeat;
 }
 
 #header p {
