@@ -356,7 +356,7 @@ $negorder=$order=='DESC'?'ASC':'DESC'; //Negate the sorting..
                     title="Sort By Date <?php echo $negorder; ?>">Date</a></th>
 	        <th width="280">
                  <a <?php echo $subj_sort; ?> href="tickets.php?sort=subj&order=<?php echo $negorder; ?><?php echo $qstr; ?>" 
-                    title="Sort By Subject <?php echo $negorder; ?>">Subject</a></th>
+                    title="Sort By Subject <?php echo $negorder; ?>">Detalle RDC/RTQA</a></th>
                 <th width="170">
                 <a <?php echo $name_sort; ?> href="tickets.php?sort=name&order=<?php echo $negorder; ?><?php echo $qstr; ?>"
                      title="Sort By Name <?php echo $negorder; ?>">From</a></th>
@@ -426,7 +426,7 @@ $negorder=$order=='DESC'?'ASC':'DESC'; //Negate the sorting..
                     $lc=Format::truncate($row['dept_name'],40);
                 }
                 $tid=$row['ticketID'];
-                $subject = Format::truncate($row['subject'],40);
+                $subject = Format::truncate($row['subject'],0);
                 $threadcount=$row['thread_count'];
                 if(!strcasecmp($row['status'],'open') && !$row['isanswered'] && !$row['lock_id']) {
                     $tid=sprintf('<b>%s</b>',$tid);
@@ -447,7 +447,7 @@ $negorder=$order=='DESC'?'ASC':'DESC'; //Negate the sorting..
                   <a class="Icon <?php echo strtolower($row['source']); ?>Ticket ticketPreview" title="Preview Ticket" 
                     href="tickets.php?id=<?php echo $row['ticket_id']; ?>"><?php echo $tid; ?></a></td>
                 <td align="center" nowrap><?php echo Format::db_datetime($row['created']); ?></td>
-                <td><a <?php if($flag) { ?> class="Icon <?php echo $flag; ?>Ticket" title="<?php echo ucfirst($flag); ?> Ticket" <?php } ?> 
+                <td align="center"><a <?php if($flag) { ?> class="Icon <?php echo $flag; ?>Ticket" title="<?php echo ucfirst($flag); ?> Ticket" <?php } ?> 
                     href="tickets.php?id=<?php echo $row['ticket_id']; ?>"><?php echo $subject; ?></a>
                      &nbsp;
                      <?php echo ($threadcount>1)?" <small>($threadcount)</small>&nbsp;":''?>
